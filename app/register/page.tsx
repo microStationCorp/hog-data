@@ -7,17 +7,19 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import * as yup from "yup";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <>
       <div className="w-5/6 sm:w-4/5 md:w-3/4 lg:w-2/3 mx-auto p-2 rounded-md border border-slate-400">
-        <div className="text-xl capitalize text-center">Login User</div>
+        <div className="text-xl capitalize text-center">Register User</div>
         <Formik
           initialValues={{
+            name: "",
             username: "",
             password: "",
           }}
           validationSchema={yup.object().shape({
+            name: yup.string().required(),
             username: yup
               .string()
               .required()
@@ -28,8 +30,22 @@ export default function LoginPage() {
               .min(6, "password should be minimum 6 characters"),
           })}
           onSubmit={async (values) => {
+            const res = await fetch("/api/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                username: values.username,
+                name: values.name,
+                password: values.password,
+              }),
+            });
+
+            const data = await res.json();
+            if (!data.user) return null;
             await signIn("credentials", {
-              username: values.username,
+              username: data.user.username,
               password: values.password,
               callbackUrl: "/",
             });
@@ -37,6 +53,16 @@ export default function LoginPage() {
         >
           {() => (
             <Form className="flex flex-col items-center mt-2 space-y-2">
+              <Field name="name">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input {...field} placeholder="Name" className="sm:w-1/2" />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
               <Field name="username">
                 {({ field, meta }: { field: any; meta: any }) => (
                   <>
@@ -67,15 +93,15 @@ export default function LoginPage() {
                 )}
               </Field>
               <Button variant={"outline"} className="text-teal-600">
-                Log In
+                Register
               </Button>
             </Form>
           )}
         </Formik>
         <div className="text-xs text-slate-500 text-center mt-3">
-          <span>New User ? </span>
+          <span>Already a User ? </span>
           <span className="text-teal-600">
-            <Link href={"/register"}>Register</Link>
+            <Link href={"/login"}>Log In</Link>
           </span>
         </div>
       </div>
