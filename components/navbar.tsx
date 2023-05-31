@@ -1,3 +1,5 @@
+"use client";
+
 import { AlignJustify } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -11,11 +13,10 @@ import {
 } from "./ui/sheet";
 import { Separator } from "./ui/separator";
 import Link from "next/link";
-import { getServerSession } from "next-auth";
-import { AuthOptions } from "@/app/api/auth/[...nextauth]/route";
+import { useSession } from "next-auth/react";
 
-export default async function Navbar() {
-  const session = await getServerSession(AuthOptions);
+export default function Navbar() {
+  const { data: session, status } = useSession();
   return (
     <>
       <Sheet>
