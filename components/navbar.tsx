@@ -55,7 +55,7 @@ export default function Navbar() {
             </div>
             <div>
               <SheetClose asChild>
-                <Link href="/add_data">Add Data</Link>
+                <Link href="/hog_form">Hog Form</Link>
               </SheetClose>
             </div>
             <div>

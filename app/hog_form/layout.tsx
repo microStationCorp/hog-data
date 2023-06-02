@@ -9,5 +9,5 @@ export default function AddDataLayout({
 }
 
 export const metadata: Metadata = {
-  title: "Add Data",
+  title: "HOG form",
 };
