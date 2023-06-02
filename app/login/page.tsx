@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Formik, Form, Field } from "formik";
+import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import * as yup from "yup";
@@ -35,7 +36,7 @@ export default function LoginPage() {
             });
           }}
         >
-          {() => (
+          {({ isSubmitting }) => (
             <Form className="flex flex-col items-center mt-2 space-y-2">
               <Field name="username">
                 {({ field, meta }: { field: any; meta: any }) => (
@@ -66,8 +67,19 @@ export default function LoginPage() {
                   </>
                 )}
               </Field>
-              <Button variant={"outline"} className="text-teal-600">
-                Log In
+              <Button
+                variant={"outline"}
+                className="text-teal-600"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    wait
+                  </>
+                ) : (
+                  "Log In"
+                )}
               </Button>
             </Form>
           )}

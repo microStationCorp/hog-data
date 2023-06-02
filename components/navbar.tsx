@@ -66,11 +66,17 @@ export default function Navbar() {
             {session ? (
               <>
                 <div className="capitalize border rounded-md py-2 bg-teal-100">
-                  {session.user.name}
+                  <SheetClose asChild>
+                    <Link href={`/profile/${session.user.id}`}>
+                      {session.user.name}
+                    </Link>
+                  </SheetClose>
                 </div>
-                <SheetClose asChild>
-                  <Link href={"/logout"}>Log out</Link>
-                </SheetClose>
+                <div>
+                  <SheetClose asChild>
+                    <Link href={"/logout"}>Log out</Link>
+                  </SheetClose>
+                </div>
               </>
             ) : (
               <>

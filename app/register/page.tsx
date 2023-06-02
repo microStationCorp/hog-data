@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Formik, Form, Field } from "formik";
+import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import * as yup from "yup";
@@ -51,7 +52,7 @@ export default function RegisterPage() {
             });
           }}
         >
-          {() => (
+          {({ isSubmitting }) => (
             <Form className="flex flex-col items-center mt-2 space-y-2">
               <Field name="name">
                 {({ field, meta }: { field: any; meta: any }) => (
@@ -92,8 +93,19 @@ export default function RegisterPage() {
                   </>
                 )}
               </Field>
-              <Button variant={"outline"} className="text-teal-600">
-                Register
+              <Button
+                variant={"outline"}
+                className="text-teal-600"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    wait
+                  </>
+                ) : (
+                  "Register"
+                )}
               </Button>
             </Form>
           )}
