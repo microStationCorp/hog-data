@@ -33,6 +33,7 @@ export default function RegisterPage() {
           onSubmit={async (values) => {
             const res = await fetch("/api/register", {
               method: "POST",
+              next: { revalidate: 0 },
               headers: {
                 "Content-Type": "application/json",
               },
