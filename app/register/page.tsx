@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Formik, Form, Field } from "formik";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
@@ -18,6 +19,7 @@ export default function RegisterPage() {
             name: "",
             username: "",
             password: "",
+            designation: "",
           }}
           validationSchema={yup.object().shape({
             name: yup.string().required(),
@@ -25,6 +27,7 @@ export default function RegisterPage() {
               .string()
               .required()
               .matches(/^[a-z0-9_-]{3,15}$/g, "invalid username"),
+            designation: yup.string().required(),
             password: yup
               .string()
               .required()
@@ -41,6 +44,7 @@ export default function RegisterPage() {
                 username: values.username,
                 name: values.name,
                 password: values.password,
+                designation: values.designation,
               }),
             });
 
@@ -71,6 +75,20 @@ export default function RegisterPage() {
                     <Input
                       {...field}
                       placeholder="username"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+              <Field name="designation">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="Designation"
                       className="sm:w-1/2"
                     />
                     {meta.touched && meta.error && (

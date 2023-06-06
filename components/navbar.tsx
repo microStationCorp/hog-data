@@ -16,7 +16,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 
 export default function Navbar() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   return (
     <>
       <Sheet>
@@ -53,18 +53,21 @@ export default function Navbar() {
                 <Link href="/">Home</Link>
               </SheetClose>
             </div>
-            <div>
-              <SheetClose asChild>
-                <Link href="/hog_form">Hog Form</Link>
-              </SheetClose>
-            </div>
-            <div>
-              <SheetClose asChild>
-                <Link href="/data_table">Data Table</Link>
-              </SheetClose>
-            </div>
+
             {session ? (
               <>
+                <div>
+                  <SheetClose asChild>
+                    <Link href="/hog_form">Hog Form</Link>
+                  </SheetClose>
+                </div>
+                {session.user.isAdmin && (
+                  <div>
+                    <SheetClose asChild>
+                      <Link href="/data_table">Data Table</Link>
+                    </SheetClose>
+                  </div>
+                )}
                 <div className="capitalize border rounded-md py-2 bg-teal-100">
                   <SheetClose asChild>
                     <Link href={`/profile/${session.user.id}`}>
