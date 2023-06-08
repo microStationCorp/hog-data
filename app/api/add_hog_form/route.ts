@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 
 export async function POST(req: NextRequest) {
   const hogdata = await req.json();
+  console.log(hogdata);
   const data = await prisma.hOGData.create({
     data: {
       date_of_departure: hogdata.date_of_departure,

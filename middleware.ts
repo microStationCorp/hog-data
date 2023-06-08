@@ -24,5 +24,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/hog_form", "/data_table", "/logout", "/login", "/profile/:path*"],
+  matcher: ["/hog_form", "/logout", "/login", "/profile/:path*"],
 };

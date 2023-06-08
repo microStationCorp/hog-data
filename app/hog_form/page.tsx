@@ -26,42 +26,15 @@ const initialValues = {
   days_per_month: "",
   wp_power_car: "",
   nwp_power_car: "",
+  from_hog: "",
+  to_hog: "",
+  units_hog: "",
+  from_eog: "",
+  to_eog: "",
+  units_eog: "",
+  reason_eog: "",
+  diesel_saved: "",
 };
-
-const fieldLabel = [
-  {
-    name: "division",
-    placeholder: "Division",
-  },
-  {
-    name: "loco_no",
-    placeholder: "Loco number",
-  },
-  {
-    name: "loco_base",
-    placeholder: "Loco base",
-  },
-  {
-    name: "train_no",
-    placeholder: "Train number",
-  },
-  {
-    name: "days_per_week",
-    placeholder: "Days per week",
-  },
-  {
-    name: "days_per_month",
-    placeholder: "Days per month",
-  },
-  {
-    name: "wp_power_car",
-    placeholder: "Working power car",
-  },
-  {
-    name: "nwp_power_car",
-    placeholder: "Non working power car",
-  },
-];
 
 export default function AddData() {
   const { data: session } = useSession();
@@ -104,6 +77,14 @@ export default function AddData() {
               .string()
               .matches(/^[0-9]{5,6}$/g, "invalid power car number")
               .required(),
+            from_hog: yup.string(),
+            to_hog: yup.string(),
+            units_hog: yup.string(),
+            from_eog: yup.string(),
+            to_eog: yup.string(),
+            units_eog: yup.string(),
+            reason_eog: yup.string(),
+            diesel_saved: yup.string(),
           })}
           initialValues={initialValues}
           onSubmit={async (values, { resetForm }) => {
@@ -115,27 +96,227 @@ export default function AddData() {
               },
             });
 
+            console.log(await res.json());
+
             resetForm();
           }}
         >
           {({ isSubmitting }) => (
             <Form className="flex flex-col items-center mt-2 space-y-2">
-              {fieldLabel.map((fl) => (
-                <Field name={fl.name} key={fl.name}>
+              <Field name="division">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="Division"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+              <Field name="loco_no">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="LOCO Number"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+              <Field name="loco_base">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="LOCO Base"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+              <Field name="train_no">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="Train number"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+              <Field name="days_per_week">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="Days Per Week"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+              <Field name="days_per_month">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="Days Per Month"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+              <Field name="wp_power_car">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="Working Power Car"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+              <Field name="nwp_power_car">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="Non working Power Car"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+
+              <div className="sm:w-1/2 flex flex-col items-center mt-2 space-y-2 border border-slate-200 rounded p-1">
+                <div className="p-1 text-center w-full rounded bg-slate-100 text-sm">
+                  HOG
+                </div>
+                <Field name="from_hog">
                   {({ field, meta }: { field: any; meta: any }) => (
                     <>
-                      <Input
-                        {...field}
-                        placeholder={fl.placeholder}
-                        className="sm:w-1/2"
-                      />
+                      <Input {...field} placeholder="From" />
                       {meta.touched && meta.error && (
                         <div className="text-red-500 text-xs">{meta.error}</div>
                       )}
                     </>
                   )}
                 </Field>
-              ))}
+                <Field name="to_hog">
+                  {({ field, meta }: { field: any; meta: any }) => (
+                    <>
+                      <Input {...field} placeholder="To" />
+                      {meta.touched && meta.error && (
+                        <div className="text-red-500 text-xs">{meta.error}</div>
+                      )}
+                    </>
+                  )}
+                </Field>
+                <Field name="units_hog">
+                  {({ field, meta }: { field: any; meta: any }) => (
+                    <>
+                      <Input {...field} placeholder="Unit Consumed" />
+                      {meta.touched && meta.error && (
+                        <div className="text-red-500 text-xs">{meta.error}</div>
+                      )}
+                    </>
+                  )}
+                </Field>
+              </div>
+
+              <div className="sm:w-1/2 flex flex-col items-center mt-2 space-y-2 border border-slate-200 rounded p-1">
+                <div className="p-1 text-center w-full rounded bg-slate-100 text-sm">
+                  EOG
+                </div>
+                <Field name="from_hog">
+                  {({ field, meta }: { field: any; meta: any }) => (
+                    <>
+                      <Input {...field} placeholder="From" />
+                      {meta.touched && meta.error && (
+                        <div className="text-red-500 text-xs">{meta.error}</div>
+                      )}
+                    </>
+                  )}
+                </Field>
+                <Field name="to_hog">
+                  {({ field, meta }: { field: any; meta: any }) => (
+                    <>
+                      <Input {...field} placeholder="To" />
+                      {meta.touched && meta.error && (
+                        <div className="text-red-500 text-xs">{meta.error}</div>
+                      )}
+                    </>
+                  )}
+                </Field>
+                <Field name="units_hog">
+                  {({ field, meta }: { field: any; meta: any }) => (
+                    <>
+                      <Input {...field} placeholder="Unit Consumed" />
+                      {meta.touched && meta.error && (
+                        <div className="text-red-500 text-xs">{meta.error}</div>
+                      )}
+                    </>
+                  )}
+                </Field>
+              </div>
+
+              <Field name="reason_eog">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="Reason to run on EOG"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+              <Field name="diesel_saved">
+                {({ field, meta }: { field: any; meta: any }) => (
+                  <>
+                    <Input
+                      {...field}
+                      placeholder="Diesel saved"
+                      className="sm:w-1/2"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className="text-red-500 text-xs">{meta.error}</div>
+                    )}
+                  </>
+                )}
+              </Field>
+
               <div className="sm:w-1/2">
                 <span className="text-sm">Date of Departure :</span>
                 <Field name="date_of_departure">
@@ -234,7 +415,7 @@ export default function AddData() {
                   )}
                 </Field>
               </div>
-              <Button variant={"outline"} disabled={isSubmitting}>
+              <Button variant={"outline"} disabled={isSubmitting} type="submit">
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

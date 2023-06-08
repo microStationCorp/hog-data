@@ -1,11 +1,12 @@
-import { HogDataType, columns } from "@/components/profilePage/columnDef";
+import { columns } from "@/components/profilePage/columnDef";
 import UserInfo from "@/components/profilePage/userinfo";
 import { DataTable } from "@/components/ui/data-table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { prisma } from "@/lib/prisma";
+import { HOGData } from "@prisma/client";
 import { Suspense } from "react";
 
-async function getData(profileID: string): Promise<HogDataType[]> {
+async function getData(profileID: string): Promise<HOGData[]> {
   const data = await prisma.hOGData.findMany({
     where: {
       user: {
@@ -15,23 +16,6 @@ async function getData(profileID: string): Promise<HogDataType[]> {
   });
 
   return data;
-  // Fetch data from your API here.
-  // return [
-  //   {
-  //     id: "string",
-  //     zone: "string",
-  //     date_of_departure: "string",
-  //     date_of_destination: "string",
-  //     train_no: "string",
-  //     loco_no: "string",
-  //     loco_base: "string",
-  //     division: "string",
-  //     days_per_week: "string",
-  //     days_per_month: "string",
-  //     wp_power_car: "string",
-  //     nwp_power_car: "string",
-  //   },
-  // ];
 }
 
 const getUserDetails = async (profileID: string) => {
@@ -40,6 +24,7 @@ const getUserDetails = async (profileID: string) => {
       id: profileID,
     },
   });
+  // console.log(user);
   return user;
 };
 
@@ -63,6 +48,8 @@ export default async function Profile({
       >
         <UserInfo user={user} />
       </Suspense>
+
+      {/* TABLE */}
       <Suspense
         fallback={
           <div className="flex items-center justify-center">

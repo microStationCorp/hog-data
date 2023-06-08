@@ -74,31 +74,16 @@ model HOGData {
   days_per_month      String
   wp_power_car        String
   nwp_power_car       String
+  from_hog            String?
+  to_hog              String?
+  units_hog           String?
+  from_eog            String?
+  to_eog              String?
+  units_eog           String?
+  reason_eog          String?
+  diesel_saved        String?
+  isPublished         Boolean? @default(false)
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @db.ObjectId
-
-  OnHOG OnHOG[]
-  OnEOG OnEOG[]
-}
-
-model OnHOG {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  from           String
-  to             String
-  unit_consumed  Float
-  diesel_saved   Int
-  total_rs_saved BigInt
-  hogdata        HOGData @relation(fields: [hogDataId], references: [id])
-  hogDataId      String  @db.ObjectId
-}
-
-model OnEOG {
-  id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  from          String
-  to            String
-  unit_consumed Float
-  reason        String
-  hogdata       HOGData @relation(fields: [hogDataId], references: [id])
-  hogDataId     String  @db.ObjectId
 }

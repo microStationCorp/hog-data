@@ -2,25 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "../ui/checkbox";
+import { HOGData } from "@prisma/client";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type HogDataType = {
-  id: string;
-  zone: string;
-  date_of_departure: Date;
-  date_of_destination: Date;
-  train_no: string;
-  loco_no: string;
-  loco_base: string;
-  division: string;
-  days_per_week: string;
-  days_per_month: string;
-  wp_power_car: string;
-  nwp_power_car: string;
-};
-
-export const columns: ColumnDef<HogDataType>[] = [
+export const columns: ColumnDef<HOGData>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -97,5 +81,47 @@ export const columns: ColumnDef<HogDataType>[] = [
   {
     accessorKey: "nwp_power_car",
     header: "Non Working P.car",
+  },
+  {
+    header: "HOG",
+    columns: [
+      {
+        header: "From",
+        accessorKey: "from_hog",
+      },
+      {
+        header: "To",
+        accessorKey: "to_hog",
+      },
+      {
+        header: "Unit Consumed",
+        accessorKey: "units_hog",
+      },
+    ],
+  },
+  {
+    header: "EOG",
+    columns: [
+      {
+        header: "From",
+        accessorKey: "from_eog",
+      },
+      {
+        header: "To",
+        accessorKey: "to_eog",
+      },
+      {
+        header: "Unit Consumed",
+        accessorKey: "units_eog",
+      },
+    ],
+  },
+  {
+    header: "Reason for Run on EOG",
+    accessorKey: "reason_eog",
+  },
+  {
+    header: "Diesel Saved",
+    accessorKey: "diesel_saved",
   },
 ];

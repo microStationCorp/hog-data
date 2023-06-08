@@ -1,4 +1,3 @@
-export default function DataTAble() {
-    return <>data Table page</>;
-  }
-  
+export default function DataTablePage() {
+  return <>data table</>;
+}

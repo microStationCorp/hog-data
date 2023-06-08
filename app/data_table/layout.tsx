@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-export default function DataTableLayout({
+export default function AddDataLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -9,5 +9,5 @@ export default function DataTableLayout({
 }
 
 export const metadata: Metadata = {
-  title: "Data Table page",
+  title: "HOG form",
 };
